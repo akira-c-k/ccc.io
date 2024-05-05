@@ -1,0 +1,11 @@
+# file
+.DS_Store
+.dockerignore
+Dockerfile
+.env
+*.py
+requirements.txt
+
+# directory
+misc/
+srcenv/
