@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <title>ccc</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            /*-------------
+            ---   all   ---
+            -------------*/
+            html {
+                background-color: rgb(255,255,255);
+            }
+            
+
+            /*--------------
+            ---   body   ---
+            --------------*/
+            body {
+                position: fixed;
+                top: 0;
+                left: 0;
+                margin: 0 auto;
+                padding: 0 auto;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                font-family: 'Times New Roman', serif;
+            }
+
+            /*---------------
+            ---   pulse   ---
+            ---------------*/
+            @keyframes pulse {
+                from {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                to {
+                    opacity: .25;
+                    transform: scale(.75);
+                }
+            }
+            .loading {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: rgba(255,255,255,0.8);
+                z-index: 1000;
+            }
+            .pulse_container {
+                width: 120px;
+                display: flex;
+                margin: 0 auto;
+                justify-content: space-between;
+                align-items: center;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .pulse_bubble {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: rgba(85,170,255,1);
+            }
+            .pulse_bubble_00 {
+                animation: pulse .4s ease 0s infinite alternate;
+            }
+            .pulse_bubble_01 {
+                animation: pulse .4s ease .2s infinite alternate;
+            }
+            .pulse_bubble_02 {
+                animation: pulse .4s ease .4s infinite alternate;
+            }
+
+            /*----------------
+            ---   header   ---
+            -----------------*/
+            header {
+                position: fixed;
+                top: 0%;
+                left: 0%;
+                width: 100%;
+                height: 10%;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                background-color: rgb(85,85,85);
+                z-index: 999;
+            }
+            header .logo_img {
+                margin-left: 10px;
+                max-height: 80%;
+            }
+
+            /*--------------
+            ---   main   ---
+            ---------------*/
+            main {
+                width: 100%;
+                height: 85%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin-top: 7%;
+            }
+
+            /*----------------
+            ---   footer   ---
+            -----------------*/
+            footer {
+                position: fixed;
+                top: 95%;
+                left: 0%;
+                display: flex;
+                align-items: center;
+                width: 100%;
+                height: 5%;
+                background-color: rgba(0,0,0,0.15);
+            }
+        </style>
+    </head>
+
+    <body>
+        <!---------------
+        ---   pulse   ---
+        ---------------->
+        <div class="loading" id="loading" style="display: none;">
+            <div class="spinner_box">
+                <div class="pulse_container">  
+                    <div class="pulse_bubble pulse_bubble_00"></div>
+                    <div class="pulse_bubble pulse_bubble_01"></div>
+                    <div class="pulse_bubble pulse_bubble_02"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!----------------
+        ---   header   ---
+        ----------------->
+        <header>
+            <!-- <img class="logo_img" src="media/logo.svg" id="logo_img"> -->
+        </header>
+
+        <!--------------
+        ---   main   ---
+        --------------->
+        <main>
+        </main>
+
+        <!----------------
+        ---   footer   ---
+        ----------------->
+        <footer>
+        </footer>
+    </body>
+
+    <script>
+        ///////////////////
+        //   variables   //
+        ///////////////////
+
+        ///////////////////
+        //   functions   //
+        ///////////////////
+
+    </script>
+</html>
