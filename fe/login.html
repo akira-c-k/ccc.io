@@ -113,6 +113,11 @@
                 justify-content: center;
                 margin-top: 7%;
             }
+			main .blc {
+                width: 100%;
+                height: 20%;
+            }
+			
 
             /*----------------
             ---   footer   ---
@@ -131,9 +136,7 @@
     </head>
 
     <body>
-        <!---------------
-        ---   pulse   ---
-        ---------------->
+        <!-- pulse -->
         <div class="loading" id="loading" style="display: none;">
             <div class="spinner_box">
                 <div class="pulse_container">  
@@ -144,23 +147,27 @@
             </div>
         </div>
         
-        <!----------------
-        ---   header   ---
-        ----------------->
+        <!-- header -->
         <header>
-            <!-- <img class="logo_img" src="media/logo.svg" id="logo_img"> -->
+            <img class="logo_img" src="media/logo.svg" id="logo_img">
         </header>
 
-        <!--------------
-        ---   main   ---
-        --------------->
+        <!-- main -->
         <main>
+			<div class="blc" id="top_blc">
+				 <input type="text" class="inp" id="id_inp">
+			</div>
+			<div class="blc" id="center_blc">
+				<input type="text" class="inp" id="name_inp">
+			</div>
+			<div class="blc" id="bottom_blc">
+				<input type="button" class="btn" id="submit_btn">
+			</div>
         </main>
 
-        <!----------------
-        ---   footer   ---
-        ----------------->
+        <!-- footer -->
         <footer>
+			<img class="exit_img" src="media/exit.svg" id="exit_img">
         </footer>
     </body>
 
