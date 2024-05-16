@@ -9,3 +9,4 @@ requirements.txt
 # directory
 misc/
 srcenv/
+test/
