@@ -5,7 +5,8 @@ Dockerfile
 .env
 *.py
 requirements.txt
-ccc.db
+*.db
+*.db
 
 # directory
 misc/
