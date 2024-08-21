@@ -5,17 +5,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-            /*-------------
-            ---   all   ---
-            -------------*/
             html {
                 background-color: rgb(255,255,255);
             }
             
-
-            /*--------------
-            ---   body   ---
-            --------------*/
             body {
                 position: fixed;
                 top: 0;
@@ -26,12 +19,21 @@
                 height: 100%;
                 display: flex;
                 flex-direction: column;
-                font-family: 'Times New Roman', serif;
-            }
+                font-family: 
+                    'SF Pro JP', 
+                    'SF Pro Text', 
+                    'SF Pro Icons', 
+                    'Hiragino Kaku Gothic Pro', 
+                    'ヒラギノ角ゴ Pro W3', 
+                    'メイリオ', 
+                    'Meiryo', 
+                    'MS PGothic', 
+                    'Helvetica Neue', 
+                    'Helvetica', 
+                    'Arial', 
+                    sans-serif;
+            }            
 
-            /*---------------
-            ---   pulse   ---
-            ---------------*/
             @keyframes pulse {
                 from {
                     opacity: 1;
@@ -69,7 +71,7 @@
                 width: 20px;
                 height: 20px;
                 border-radius: 50%;
-                background-color: rgba(85,170,255,1);
+                background-color: rgba(230,230,230,1);
             }
             .pulse_bubble_00 {
                 animation: pulse .4s ease 0s infinite alternate;
@@ -81,9 +83,6 @@
                 animation: pulse .4s ease .4s infinite alternate;
             }
 
-            /*----------------
-            ---   header   ---
-            -----------------*/
             header {
                 position: fixed;
                 top: 0%;
@@ -93,35 +92,66 @@
                 display: flex;
                 flex-direction: row;
                 align-items: center;
-                background-color: rgb(85,85,85);
-                z-index: 999;
+                background-color: rgba(171,171,171,1);
+                z-index: 2;
             }
             header .logo_img {
                 margin-left: 10px;
                 max-height: 80%;
             }
 
-            /*--------------
-            ---   main   ---
-            ---------------*/
             main {
                 width: 100%;
-                height: 85%;
+                height: 100%;
                 display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                margin-top: 7%;
+                justify-content: center; /*horaizontal*/
+                align-items: center; /*vertical*/
+                z-index: 1;
             }
-			main .blc {
-                width: 100%;
-                height: 20%;
+            main .blc_container {
+                width: 80%;
+                height: 300px;
+                justify-content: center; /*horaizontal*/
+                align-items: center; /*vertical*/
+                margin: 100px auto 0px auto;
+            }
+            main .blc {
+                width: 300px;
+                height: 60px;
+                justify-content: center; /*horaizontal*/
+                align-items: center; /*vertical*/
+                display: flex;
+                flex-direction: row;
+                margin: 0 auto;
+            }
+            main .exp_zn {
+                width: 40%;
+                display: flex;
+            }
+            main .exp {
+                margin: 0 auto;                
+            }
+            main .inp_zn {
+                width: 60%;
+                display: flex;
+            }
+            main .inp {
+                width: 120px;
+                height: 20px;
+                margin: 0 auto;
+                padding: 0 7px;
+                border: 1px solid rgba(171,171,171,1);
+                border-radius: 10px;
+            }
+            main .btn {
+                width: 120px;
+                height: 36px;
+                cursor: pointer;
+                z-index: 10;
+                border: 1px solid rgba(171,171,171,1);
+                border-radius: 18px;
             }
 			
-
-            /*----------------
-            ---   footer   ---
-            -----------------*/
             footer {
                 position: fixed;
                 top: 95%;
@@ -130,13 +160,13 @@
                 align-items: center;
                 width: 100%;
                 height: 5%;
-                background-color: rgba(0,0,0,0.15);
+                /* background-color: rgba(90,90,90,1); */
+                z-index: 2;
             }
         </style>
     </head>
 
     <body>
-        <!-- pulse -->
         <div class="loading" id="loading" style="display: none;">
             <div class="spinner_box">
                 <div class="pulse_container">  
@@ -147,27 +177,40 @@
             </div>
         </div>
         
-        <!-- header -->
         <header>
             <img class="logo_img" src="media/logo.svg" id="logo_img">
         </header>
 
-        <!-- main -->
         <main>
-			<div class="blc" id="top_blc">
-				 <input type="text" class="inp" id="id_inp">
-			</div>
-			<div class="blc" id="center_blc">
-				<input type="text" class="inp" id="name_inp">
-			</div>
-			<div class="blc" id="bottom_blc">
-				<input type="button" class="btn" id="submit_btn">
-			</div>
+            <div class="blc_container" id="blc_container">
+                
+                <div class="blc" id="blc_01">
+                    <div class="exp_zn" id="exp_zn">
+                        <p class="exp">ユーザID</p>
+                    </div>
+                    <div class="inp_zn">
+                        <input type="text" class="inp" id="id_inp">
+                    </div>
+                </div>
+
+                <div class="blc" id="blc_02">
+                    <div class="exp_zn" id="exp_zn">
+                        <p class="exp">パスワード</p>
+                    </div>
+                    <div class="inp_zn">
+                        <input type="text" class="inp" id="name_inp">
+                    </div>
+                </div>
+
+                <div class="blc" id="blc_03">
+                    <input type="button" class="btn" id="submit_btn" value="ログイン">
+                </div>
+
+            </div>
         </main>
 
-        <!-- footer -->
         <footer>
-			<img class="exit_img" src="media/exit.svg" id="exit_img">
+			<!-- <img class="exit_img" src="media/exit.svg" id="exit_img"> -->
         </footer>
     </body>
 
@@ -179,6 +222,5 @@
         ///////////////////
         //   functions   //
         ///////////////////
-
     </script>
 </html>

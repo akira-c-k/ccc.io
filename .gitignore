@@ -7,8 +7,10 @@ Dockerfile
 requirements.txt
 *.db
 *.sqlite3
+_div.md
 
 # directory
 misc/
 srcenv/
 test/
+creative/
