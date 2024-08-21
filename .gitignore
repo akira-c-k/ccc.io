@@ -7,7 +7,7 @@ Dockerfile
 requirements.txt
 *.db
 *.sqlite3
-_div.md
+_dev.md
 
 # directory
 misc/
