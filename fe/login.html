@@ -198,12 +198,12 @@
                         <p class="exp">パスワード</p>
                     </div>
                     <div class="inp_zn">
-                        <input type="text" class="inp" id="name_inp">
+                        <input type="text" class="inp" id="pw_inp">
                     </div>
                 </div>
 
                 <div class="blc" id="blc_03">
-                    <input type="button" class="btn" id="submit_btn" value="ログイン">
+                    <input type="button" class="btn" id="submit_btn" value="ログイン" onclick="login()">
                 </div>
 
             </div>
@@ -218,9 +218,66 @@
         ///////////////////
         //   variables   //
         ///////////////////
+        const api_gateway = "https://uegiaoytr2.execute-api.us-east-1.amazonaws.com/ccc";
+        const process = "login";
 
         ///////////////////
         //   functions   //
         ///////////////////
+        function showLoading() {
+            document.getElementById("loading").style.display = "block";
+        };
+        function hideLoading() {
+            document.getElementById("loading").style.display = "none";
+        };
+        function getTimeStamp() {
+            let now = new Date();
+            let year = now.getFullYear();
+            let month = ("0" + (now.getMonth() + 1)).slice(-2);
+            let day = ("0" + now.getDate()).slice(-2);
+            let hours = ("0" + now.getHours()).slice(-2);
+            let minutes = ("0" + now.getMinutes()).slice(-2);
+            let seconds = ("0" + now.getSeconds()).slice(-2);
+            let timestamp = year + month + day + hours + minutes + seconds;
+            return timestamp;
+        };
+        function login() {
+            let timestamp = getTimeStamp();
+            let bodyData = {
+                "process": process,
+                "timestamp": timestamp,
+                "payer_id": document.getElementById("id_inp").value,
+                "password": document.getElementById("pw_inp").value
+            };
+            let sentData = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(bodyData)
+            }
+            // console.log(sentData);
+            showLoading();
+            fetch(api_gateway, sentData)
+            .then(response => response.json())
+            .then(result => {
+                console.log("API Response to api_gateway:", result);
+                let getData = result;
+                console.log("getData ===>");
+                if (getData.msg === "login completed") {
+                    sessionStorage.setItem("payer_id", getData.payer_id);
+                    hideLoading();
+                    window.location.href = "index.html";
+                } else {
+                    sessionStorage.setItem("response", "ユーザIDかパスワードに誤りがあります。");
+                    hideLoading();
+                    window.location.href = "login.html";
+                }
+                
+            })
+            .catch(error => {
+                console.error("API Error to api_gateway:", error);
+            });
+        };
     </script>
 </html>
