@@ -1,1 +1,353 @@
-<!doctype html><html lang="ja">    <head>        <title>ccc</title>        <meta charset="utf-8">        <meta name="viewport" content="width=device-width, initial-scale=1.0">        <style>            html {                background-color: rgb(255,255,255);            }                        body {                position: fixed;                top: 0;                left: 0;                margin: 0 auto;                padding: 0 auto;                width: 100%;                height: 100%;                display: flex;                flex-direction: column;                font-family:                     'SF Pro JP',                     'SF Pro Text',                     'SF Pro Icons',                     'Hiragino Kaku Gothic Pro',                     'ヒラギノ角ゴ Pro W3',                     'メイリオ',                     'Meiryo',                     'MS PGothic',                     'Helvetica Neue',                     'Helvetica',                     'Arial',                     sans-serif;            }                        @keyframes pulse {                from {                    opacity: 1;                    transform: scale(1);                }                to {                    opacity: .25;                    transform: scale(.75);                }            }            .loading {                position: fixed;                top: 0;                left: 0;                width: 100%;                height: 100%;                display: flex;                justify-content: center;                align-items: center;                background-color: rgba(255,255,255,0.8);                z-index: 1000;            }            .pulse_container {                width: 120px;                display: flex;                margin: 0 auto;                justify-content: space-between;                align-items: center;                position: absolute;                top: 50%;                left: 50%;                transform: translate(-50%, -50%);            }            .pulse_bubble {                width: 20px;                height: 20px;                border-radius: 50%;                background-color: rgba(230,230,230,1);            }            .pulse_bubble_00 {                animation: pulse .4s ease 0s infinite alternate;            }            .pulse_bubble_01 {                animation: pulse .4s ease .2s infinite alternate;            }            .pulse_bubble_02 {                animation: pulse .4s ease .4s infinite alternate;            }            header {                position: fixed;                top: 0%;                left: 0%;                width: 100%;                height: 10%;                display: flex;                flex-direction: row;                align-items: center;                background-color: rgba(171,171,171,1);                z-index: 2;            }            header .logo_img {                margin-left: 10px;                max-height: 80%;            }            main {                width: 100%;                height: 100%;                display: flex;                justify-content: center; /*horaizontal*/                align-items: center; /*vertical*/                z-index: 1;            }            main .blc_container {                width: 80%;                height: 300px;                justify-content: center; /*horaizontal*/                align-items: center; /*vertical*/                margin: 100px auto 0px auto;            }            main .blc {                width: 300px;                height: 60px;                justify-content: center; /*horaizontal*/                align-items: center; /*vertical*/                display: flex;                flex-direction: row;                margin: 0 auto;            }            main .exp_zn {                width: 40%;                display: flex;            }            main .exp {                margin: 0 auto;                            }            main .inp_zn {                width: 60%;                display: flex;            }            main .inp {                width: 120px;                height: 20px;                margin: 0 auto;                padding: 0 7px;                border: 1px solid rgba(171,171,171,1);                border-radius: 10px;            }            main .btn {                width: 120px;                height: 36px;                cursor: pointer;                z-index: 10;                border: 1px solid rgba(171,171,171,1);                border-radius: 18px;            }			            footer {                position: fixed;                top: 95%;                left: 0%;                display: flex;                align-items: center;                width: 100%;                height: 5%;                /* background-color: rgba(90,90,90,1); */                z-index: 2;            }        </style>    </head>    <body>        <div class="loading" id="loading" style="display: none;">            <div class="spinner_box">                <div class="pulse_container">                      <div class="pulse_bubble pulse_bubble_00"></div>                    <div class="pulse_bubble pulse_bubble_01"></div>                    <div class="pulse_bubble pulse_bubble_02"></div>                </div>            </div>        </div>                <header>            <img class="logo_img" src="media/logo.svg" id="logo_img">        </header>        <main>            <div class="blc_container" id="blc_container">                                <div class="blc" id="blc_01">                    <div class="exp_zn" id="exp_zn">                        <p class="exp">ユーザID</p>                    </div>                    <div class="inp_zn">                        <input type="text" class="inp" id="id_inp">                    </div>                </div>                <div class="blc" id="blc_02">                    <div class="exp_zn" id="exp_zn">                        <p class="exp">パスワード</p>                    </div>                    <div class="inp_zn">                        <input type="text" class="inp" id="name_inp">                    </div>                </div>                <div class="blc" id="blc_03">                    <input type="button" class="btn" id="submit_btn" value="ログイン">                </div>            </div>        </main>        <footer>			<!-- <img class="exit_img" src="media/exit.svg" id="exit_img"> -->        </footer>    </body>    <script>        ///////////////////        //   variables   //        ///////////////////        ///////////////////        //   functions   //        ///////////////////    </script></html>
+<!doctype html>
+<html lang="ja">
+    <head>
+        <title>ccc</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            html {
+                background-color: rgb(255,255,255);
+            }
+            
+            body {
+                position: fixed;
+                top: 0;
+                left: 0;
+                margin: 0 auto;
+                padding: 0 auto;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                font-family: 
+                    'SF Pro JP', 
+                    'SF Pro Text', 
+                    'SF Pro Icons', 
+                    'Hiragino Kaku Gothic Pro', 
+                    'ヒラギノ角ゴ Pro W3', 
+                    'メイリオ', 
+                    'Meiryo', 
+                    'MS PGothic', 
+                    'Helvetica Neue', 
+                    'Helvetica', 
+                    'Arial', 
+                    sans-serif;
+            }            
+
+            @keyframes pulse {
+                from {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                to {
+                    opacity: .25;
+                    transform: scale(.75);
+                }
+            }
+            .loading {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: rgba(255,255,255,0.8);
+                z-index: 1000;
+            }
+            .pulse_container {
+                width: 120px;
+                display: flex;
+                margin: 0 auto;
+                justify-content: space-between;
+                align-items: center;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .pulse_bubble {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: rgba(230,230,230,1);
+            }
+            .pulse_bubble_00 {
+                animation: pulse .4s ease 0s infinite alternate;
+            }
+            .pulse_bubble_01 {
+                animation: pulse .4s ease .2s infinite alternate;
+            }
+            .pulse_bubble_02 {
+                animation: pulse .4s ease .4s infinite alternate;
+            }
+
+            header {
+                position: fixed;
+                top: 0%;
+                left: 0%;
+                width: 100%;
+                height: 10%;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                background-color: rgba(171,171,171,1);
+                z-index: 2;
+                justify-content: space-between;
+            }
+            header .logo_img {
+                margin-left: 10px;
+                max-height: 80%;
+            }
+            header .hamburger_menu {
+                width: 30px;
+                height: 25px;
+                margin: 0px 20px 0px 0px;
+                position: relative;
+            }
+            header .hamburger_menu span {
+                position: absolute;
+                width: 100%;
+                height: 3px;
+                background-color: rgba(90,90,90,1);
+            }
+            header .hamburger_menu span:first-of-type {
+                top: 0%;
+            }
+            header .hamburger_menu span:nth-of-type(2) {
+                top: 50%;
+            }
+            header .hamburger_menu span:last-of-type {
+                top: 100%;
+            }
+            
+            main {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center; /*horaizontal*/
+                align-items: center; /*vertical*/
+                z-index: 1;
+            }
+            main .blc_container {
+                width: 80%;
+                height: 300px;
+                justify-content: center; /*horaizontal*/
+                align-items: center; /*vertical*/
+                margin: 0px auto 0px auto;
+            }
+            main .b_c_00 {
+                display: none;
+            }
+            main .b_c_01 {
+                display: block;
+            }
+            main .b_c_02 {
+                display: none;
+            }
+            main .blc {
+                width: 300px;
+                height: 60px;
+                justify-content: center; /*horaizontal*/
+                align-items: center; /*vertical*/
+                display: flex;
+                flex-direction: row;
+                margin: 0 auto;
+            }
+            main .exp_zn {
+                width: 40%;
+                display: flex;
+            }
+            main .exp {
+                margin: 0 auto;                
+            }
+            main .inp_zn {
+                width: 60%;
+                display: flex;
+            }
+            main .inp {
+                width: 120px;
+                height: 20px;
+                margin: 0 auto;
+                padding: 0 7px;
+                border: 1px solid rgba(171,171,171,1);
+                border-radius: 10px;
+            }
+            main .opt {
+                width: 138px;
+                height: 23px;
+                margin: 0 auto;
+                padding: 0 7px;
+                border: 1px solid rgba(171,171,171,1);
+                border-radius: 10px;
+            }
+            main .btn {
+                width: 120px;
+                height: 36px;
+                cursor: pointer;
+                z-index: 10;
+                border: 1px solid rgba(171,171,171,1);
+                border-radius: 18px;
+            }
+			
+            footer {
+                position: fixed;
+                top: 95%;
+                left: 0%;
+                display: flex;
+                align-items: center;
+                width: 100%;
+                height: 5%;
+                /* background-color: rgba(90,90,90,1); */
+                z-index: 2;
+                justify-content: space-between;
+            }
+            footer .left_triangle {
+                width: 0;
+                height: 0;
+                margin: 0px 0px 15px 5px;
+                border-left: 14px solid transparent;
+                border-right: 14px solid transparent;
+                border-bottom: 20px solid rgba(171,171,171,1);
+                transform: rotate(-90deg);
+            }
+            footer .right_triangle {
+                width: 0;
+                height: 0;
+                margin: -15px 5px 0px 0px;
+                border-left: 14px solid transparent;
+                border-right: 14px solid transparent;
+                border-bottom: 20px solid rgba(171,171,171,1);
+                transform: rotate(+90deg);
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="loading" id="loading" style="display: none;">
+            <div class="spinner_box">
+                <div class="pulse_container">  
+                    <div class="pulse_bubble pulse_bubble_00"></div>
+                    <div class="pulse_bubble pulse_bubble_01"></div>
+                    <div class="pulse_bubble pulse_bubble_02"></div>
+                </div>
+            </div>
+        </div>
+        
+        <header>
+            <img class="logo_img" src="media/logo.svg" id="logo_img">
+            <div class="hamburger_menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </header>
+
+        <main>
+            <div class="blc_container b_c_00" id="blc_container_00">
+                
+            </div>
+
+            <div class="blc_container b_c_01" id="blc_container_01">
+                <div class="blc" id="blc_01">
+                    <div class="exp_zn" id="exp_zn">
+                        <p class="exp">費目</p>
+                    </div>
+                    <div class="inp_zn">
+                        <select class="opt" id="category_inp">
+                            <option value="">選択肢</option>
+                            <option value="cost_eatout">外食</option>
+                            <option value="cost_food">食材</option>
+                            <option value="cost_dailyuse">日用品</option>
+                            <option value="cost_food_dailyuse">食材・日用品</option>
+                            <option value="cost_accomodation">宿泊費</option>
+                            <option value="cost_learning">学習費</option>
+                            <option value="cost_transportaion">交通費</option>
+                            <option value="cost_interenet">通信費</option>
+                            <option value="cost_entertainment">娯楽費</option>
+                            <option value="cost_treatment">治費費・薬剤費</option>
+                            <option value="cost_cosmetic">化粧品・美容</option>
+                            <option value="cost_rent">家賃</option>
+                            <option value="cost_utility">光熱費</option>
+                            <option value="cost_water">水道代</option>
+                            <option value="cost_apparel">服飾費</option>
+                            <option value="cost_communicaiton">交際費</option>
+                            <option value="cost_saving">貯蓄</option>
+                            <option value="cost_other">その他</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="blc" id="blc_02">
+                    <div class="exp_zn" id="exp_zn">
+                        <p class="exp">店名</p>
+                    </div>
+                    <div class="inp_zn">
+                        <input type="text" class="inp" id="store_inp">
+                    </div>
+                </div>
+                <div class="blc" id="blc_03">
+                    <div class="exp_zn" id="exp_zn">
+                        <p class="exp">家計/個人</p>
+                    </div>
+                    <div class="inp_zn">
+                        <select class="opt" id="obj_inp">
+                            <option value="">選択肢</option>
+                            <option value="obj_household">家計</option>
+                            <option value="obj_individual">個人</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="blc" id="blc_04">
+                    <div class="exp_zn" id="exp_zn">
+                        <p class="exp">金額</p>
+                    </div>
+                    <div class="inp_zn">
+                        <input type="text" class="inp" id="money_inp">
+                    </div>
+                </div>
+                <div class="blc" id="blc_05">
+                    <div class="exp_zn" id="exp_zn">
+                        <p class="exp">支払日</p>
+                    </div>
+                    <div class="inp_zn">
+                        <input type="text" class="inp" id="py_date_inp">
+                    </div>
+                </div>
+                <div class="blc" id="blc_06">
+                    <input type="button" class="btn" id="submit_btn" value="保存" onclick="save()">
+                </div>
+            </div>
+
+            <div class="blc_container b_c_02" id="blc_container_02">
+            </div>
+
+        </main>
+
+        <footer>
+			<div class="left_triangle" id="left_triangle" onclick="handleScroll()"></div>
+            <div class="right_triangle" id="right_triangle" onclick="handleScroll()"></div>
+        </footer>
+    </body>
+
+    <script>
+        ///////////////////
+        //   variables   //
+        ///////////////////
+
+        ///////////////////
+        //   functions   //
+        ///////////////////
+        function exit() {
+            let confirmation = window.confirm("ログアウトしますが、よろしいですか？")
+            if (confirmation == true) {
+                window.location.href = "login.html"
+            };
+        };
+
+        function handleScroll() {
+            window.location.href = "login.html"
+        };
+
+    </script>
+</html>
