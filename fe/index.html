@@ -132,7 +132,7 @@
             }
             main .blc_container {
                 width: 80%;
-                height: 300px;
+                height: 360px;
                 justify-content: center; /*horaizontal*/
                 align-items: center; /*vertical*/
                 margin: 0px auto 0px auto;
@@ -140,11 +140,20 @@
             main .b_c_00 {
                 display: none;
             }
+            main .b_c_00.active {
+                display: block;
+            }
             main .b_c_01 {
+                display: none;
+            }
+            main .b_c_01.active {
                 display: block;
             }
             main .b_c_02 {
                 display: none;
+            }
+            main .b_c_02.active {
+                display: block;
             }
             main .blc {
                 width: 300px;
@@ -211,7 +220,13 @@
                 border-right: 14px solid transparent;
                 border-bottom: 20px solid rgba(171,171,171,1);
                 transform: rotate(-90deg);
+                cursor: pointer;
+                transition: all 0.2s ease; /* スムーズな変化 */
             }
+            footer .left_triangle:active {
+                transform: translateX(1px); /* ボタンを押し込む効果 */
+            }
+
             footer .right_triangle {
                 width: 0;
                 height: 0;
@@ -246,7 +261,7 @@
 
         <main>
             <div class="blc_container b_c_00" id="blc_container_00">
-                
+                <p>00</p>
             </div>
 
             <div class="blc_container b_c_01" id="blc_container_01">
@@ -303,7 +318,7 @@
                         <p class="exp">金額</p>
                     </div>
                     <div class="inp_zn">
-                        <input type="text" class="inp" id="money_inp">
+                        <input type="text" class="inp" id="money_inp" oninput="money_format(event)">
                     </div>
                 </div>
                 <div class="blc" id="blc_05">
@@ -311,22 +326,31 @@
                         <p class="exp">支払日</p>
                     </div>
                     <div class="inp_zn">
-                        <input type="text" class="inp" id="py_date_inp">
+                        <input type="date" class="inp" id="py_date_inp">
                     </div>
                 </div>
                 <div class="blc" id="blc_06">
+                    <div class="exp_zn" id="exp_zn">
+                        <p class="exp">メモ</p>
+                    </div>
+                    <div class="inp_zn">
+                        <input type="text" class="inp" id="memo_inp">
+                    </div>
+                </div>
+                <div class="blc" id="blc_07">
                     <input type="button" class="btn" id="submit_btn" value="保存" onclick="save()">
                 </div>
             </div>
 
             <div class="blc_container b_c_02" id="blc_container_02">
+                <p>02</p>
             </div>
 
         </main>
 
         <footer>
-			<div class="left_triangle" id="left_triangle" onclick="handleScroll()"></div>
-            <div class="right_triangle" id="right_triangle" onclick="handleScroll()"></div>
+			<div class="left_triangle" id="left_triangle" onclick="handleScroll(event)"></div>
+            <div class="right_triangle" id="right_triangle" onclick="handleScroll(event)"></div>
         </footer>
     </body>
 
@@ -334,10 +358,36 @@
         ///////////////////
         //   variables   //
         ///////////////////
+        const api_gateway = "https://uegiaoytr2.execute-api.us-east-1.amazonaws.com/ccc";
+        const payer_id = sessionStorage.getItem("payer_id");
 
         ///////////////////
         //   functions   //
         ///////////////////
+        window.onload = function() {
+            document.getElementById("blc_container_01").classList.add("active");
+        };
+
+        function showLoading() {
+            document.getElementById("loading").style.display = "block";
+        };
+
+        function hideLoading() {
+            document.getElementById("loading").style.display = "none";
+        };
+
+        function getTimeStamp() {
+            let now = new Date();
+            let year = now.getFullYear();
+            let month = ("0" + (now.getMonth() + 1)).slice(-2);
+            let day = ("0" + now.getDate()).slice(-2);
+            let hours = ("0" + now.getHours()).slice(-2);
+            let minutes = ("0" + now.getMinutes()).slice(-2);
+            let seconds = ("0" + now.getSeconds()).slice(-2);
+            let timestamp = year + month + day + hours + minutes + seconds;
+            return timestamp;
+        };
+
         function exit() {
             let confirmation = window.confirm("ログアウトしますが、よろしいですか？")
             if (confirmation == true) {
@@ -346,8 +396,95 @@
         };
 
         function handleScroll() {
-            window.location.href = "login.html"
+            let clicked_id = event.target.id;
+            if (clicked_id === "right_triangle") {
+                if (document.getElementById("blc_container_00").classList.contains("active")) {
+                    document.getElementById("blc_container_00").classList.remove("active");
+                    setTimeout(() => {
+                        document.getElementById("blc_container_01").classList.add("active");
+                    }, 200);
+                } else if (document.getElementById("blc_container_01").classList.contains("active")) {
+                    document.getElementById("blc_container_01").classList.remove("active");
+                    setTimeout(() => {
+                        document.getElementById("blc_container_02").classList.add("active");
+                    }, 200);
+                } else if (document.getElementById("blc_container_02").classList.contains("active")) {
+                    document.getElementById("blc_container_02").classList.remove("active");
+                    setTimeout(() => {
+                        document.getElementById("blc_container_00").classList.add("active");
+                    }, 200);
+                };
+            } else {
+                if (document.getElementById("blc_container_00").classList.contains("active")) {
+                    document.getElementById("blc_container_00").classList.remove("active");
+                    setTimeout(() => {
+                        document.getElementById("blc_container_02").classList.add("active");
+                    }, 200);
+                } else if (document.getElementById("blc_container_02").classList.contains("active")) {
+                    document.getElementById("blc_container_02").classList.remove("active");
+                    setTimeout(() => {
+                        document.getElementById("blc_container_01").classList.add("active");
+                    }, 200);
+                } else if (document.getElementById("blc_container_01").classList.contains("active")) {
+                    document.getElementById("blc_container_01").classList.remove("active");
+                    setTimeout(() => {
+                        document.getElementById("blc_container_00").classList.add("active");
+                    }, 200);
+                };
+            };
         };
 
+        function money_format(event) {
+            let value = event.target.value.replace(/,/g, '');
+            if (isNaN(value)) {
+                e.target.value = '';
+                return;
+            }
+            event.target.value = new Intl.NumberFormat('ja-JP').format(value);
+            console.log(Intl.NumberFormat('ja-JP').format(value));
+        };
+
+        function insert_log() {
+            let process = "insert_log"
+            let timestamp = getTimeStamp();
+            let bodyData = {
+                "process": process,
+                "timestamp": timestamp,
+                "payer_id": payer_id,
+                "category": document.getElementById("category_inp").value,
+                "store": document.getElementById("store_inp").value,
+                "obj": document.getElementById("obj_inp").value,
+                "money": document.getElementById("money_inp").value,
+                "py_date": document.getElementById("py_date_inp").value,
+                "memo": document.getElementById("memo_inp").value,
+            };
+            let sentData = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(bodyData)
+            }
+            // console.log(sentData);
+            showLoading();
+            fetch(api_gateway, sentData)
+            .then(response => response.json())
+            .then(result => {
+                console.log("API Response to api_gateway:", result);
+                let getData = result;
+                console.log("getData ===>");
+                if (getData.msg === "insert_log completed") {
+                    sessionStorage.setItem("payer_id", getData.payer_id);
+                    hideLoading();
+                    window.location.href = "index.html";
+                } else {
+                    sessionStorage.setItem("response", "エラーが起きています");
+                    hideLoading();
+                }
+            })
+            .catch(error => {
+                console.error("API Error to api_gateway:", error);
+            });
+        };
     </script>
 </html>
