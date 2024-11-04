@@ -169,11 +169,12 @@
                 display: flex;
             }
             main .exp {
-                margin: 0 auto;                
+                margin: 0 auto;
             }
             main .inp_zn {
                 width: 60%;
                 display: flex;
+                touch-action: manipulation;
             }
             main .inp {
                 width: 120px;
@@ -182,6 +183,7 @@
                 padding: 0 7px;
                 border: 1px solid rgba(171,171,171,1);
                 border-radius: 10px;
+                touch-action: manipulation;
             }
             main .opt {
                 width: 138px;
@@ -318,7 +320,7 @@
                         <p class="exp">金額</p>
                     </div>
                     <div class="inp_zn">
-                        <input type="text" class="inp" id="money_inp" oninput="money_format(event)">
+                        <input type="number" class="inp" id="money_inp">
                     </div>
                 </div>
                 <div class="blc" id="blc_05">
@@ -338,7 +340,7 @@
                     </div>
                 </div>
                 <div class="blc" id="blc_07">
-                    <input type="button" class="btn" id="submit_btn" value="保存" onclick="save()">
+                    <input type="button" class="btn" id="submit_btn" value="保存" onclick="insert_log()">
                 </div>
             </div>
 
@@ -437,11 +439,10 @@
         function money_format(event) {
             let value = event.target.value.replace(/,/g, '');
             if (isNaN(value)) {
-                e.target.value = '';
+                event.target.value = '';
                 return;
             }
             event.target.value = new Intl.NumberFormat('ja-JP').format(value);
-            console.log(Intl.NumberFormat('ja-JP').format(value));
         };
 
         function insert_log() {
