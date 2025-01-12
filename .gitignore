@@ -8,6 +8,7 @@ requirements.txt
 *.db
 *.sqlite3
 _dev.md
+dev.md
 
 # directory
 misc/
