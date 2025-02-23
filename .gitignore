@@ -9,6 +9,8 @@ requirements.txt
 *.sqlite3
 _dev.md
 dev.md
+config.json
+config.json.js
 
 # directory
 misc/

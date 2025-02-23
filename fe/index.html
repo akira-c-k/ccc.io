@@ -4,6 +4,8 @@
         <title>ccc</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="config.json.js"></script>
         <style>
             html {
                 background-color: rgb(255,255,255);
@@ -20,17 +22,17 @@
                 display: flex;
                 flex-direction: column;
                 font-family: 
-                    'SF Pro JP', 
-                    'SF Pro Text', 
-                    'SF Pro Icons', 
+                    /* 'SF Pro JP',  */
+                    /* 'SF Pro Text',  */
+                    /* 'SF Pro Icons',  */
                     'Hiragino Kaku Gothic Pro', 
                     'ヒラギノ角ゴ Pro W3', 
-                    'メイリオ', 
-                    'Meiryo', 
-                    'MS PGothic', 
+                    /* 'メイリオ',  */
+                    /* 'Meiryo',  */
+                    /* 'MS PGothic',  */
                     'Helvetica Neue', 
                     'Helvetica', 
-                    'Arial', 
+                    /* 'Arial',  */
                     sans-serif;
             }            
 
@@ -105,23 +107,76 @@
                 height: 25px;
                 margin: 0px 20px 0px 0px;
                 position: relative;
+                cursor: pointer;
+                z-index: 11;
             }
             header .hamburger_menu span {
                 position: absolute;
                 width: 100%;
                 height: 3px;
                 background-color: rgba(90,90,90,1);
+                transition: all 0.3s ease;
             }
             header .hamburger_menu span:first-of-type {
+                top: 0%;
+            }
+            header .hamburger_menu.active span:first-of-type {
+                transform: rotate(45deg);
                 top: 0%;
             }
             header .hamburger_menu span:nth-of-type(2) {
                 top: 50%;
             }
+            header .hamburger_menu.active span:nth-of-type(2) {
+                opacity: 0;
+            }
             header .hamburger_menu span:last-of-type {
                 top: 100%;
             }
-            
+            header .hamburger_menu.active span:last-of-type {
+                transform: rotate(-45deg);
+                top: 0%;
+            }
+
+            header .menu_screen {
+                position: fixed;
+                top: 0;
+                right: -50%;
+                width: 50%;
+                height: 100%;
+                background-color: rgba(255,255,255,1);
+                box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+                transition: right 0.3s ease;
+                z-index: 10;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+            }
+            header .menu_screen.active {
+                right: 0;
+            }
+            header .menu_screen button {
+                width: 120px;
+                height: 60px;
+                padding: 15px;
+                margin: 10px;
+                background-color: rgba(220,220,220,1);
+                box-shadow: 0 5px 0 rgba(160,160,160,1);
+                border: none;
+                text-align: center;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.3s ease;
+            }
+            header .menu_screen button:active {
+                box-shadow: none;
+                transform: translateY(5px);
+            }
+            header .menu_screen .menu_btn_01 {
+                margin-top: 50px;
+            }
+
             main {
                 width: 100%;
                 height: 100%;
@@ -142,6 +197,8 @@
             }
             main .b_c_00.active {
                 display: block;
+                width: 95%; /* overwrite */
+                height: 80%; /* overwrite */
             }
             main .b_c_01 {
                 display: none;
@@ -154,6 +211,8 @@
             }
             main .b_c_02.active {
                 display: block;
+                width: 95%; /* overwrite */
+                height: 80%; /* overwrite */
             }
             main .blc {
                 width: 300px;
@@ -164,6 +223,36 @@
                 flex-direction: row;
                 margin: 0 auto;
             }
+
+            main .table_container {
+                max-width: 1200px;
+                max-height: 1200px;
+                margin: auto;
+                overflow-y: auto;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                table-layout: fixed;
+                margin-top: 10px;
+            }
+            th, td {
+                border: 1px solid rgba(230,230,230,1);
+                text-align: left;
+                padding: 4px;
+                white-space: normal;
+                font-size: 10px;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            th {
+                background-color: rgba(90,90,90,1);
+                color: rgba(255,255,255,1);
+            }
+            tr:hover {
+                background-color: rgba(171,171,171,1);
+            }
+
             main .exp_zn {
                 width: 40%;
                 display: flex;
@@ -202,6 +291,46 @@
                 border-radius: 18px;
             }
 			
+            main .nav_btns {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            main .nav_btn {
+                width: 120px;
+                height: 60px;
+                padding: 15px;
+                margin: 10px;
+                background-color: rgba(220,220,220,1);
+                box-shadow: 0 5px 0 rgba(160,160,160,1);
+                border: none;
+                text-align: center;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.3s ease;
+            }
+            main .nav_btn:active {
+                box-shadow: none;
+                transform: translateY(5px);
+            }
+            main #prevButton {
+                left: 10%;
+            }
+            main #nextButton {
+                right: 10%;
+            }
+            main .chart_container {
+                position: relative;
+                width: 90%;
+                height: 80%;
+                margin: 0 auto;
+                background: #fff;
+                padding: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+            }
+
             footer {
                 position: fixed;
                 top: 95%;
@@ -223,12 +352,11 @@
                 border-bottom: 20px solid rgba(171,171,171,1);
                 transform: rotate(-90deg);
                 cursor: pointer;
-                transition: all 0.2s ease; /* スムーズな変化 */
+                transition: all 0.3s ease;
             }
             footer .left_triangle:active {
-                transform: translateX(1px); /* ボタンを押し込む効果 */
+                transform: translateX(-3px) rotate(270deg);
             }
-
             footer .right_triangle {
                 width: 0;
                 height: 0;
@@ -237,6 +365,11 @@
                 border-right: 14px solid transparent;
                 border-bottom: 20px solid rgba(171,171,171,1);
                 transform: rotate(+90deg);
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            footer .right_triangle:active {
+                transform: translateX(3px) rotate(90deg);
             }
         </style>
     </head>
@@ -254,16 +387,38 @@
         
         <header>
             <img class="logo_img" src="media/logo.svg" id="logo_img">
-            <div class="hamburger_menu">
+            <div class="hamburger_menu" id="hamburger_menu" onclick="handleHamburger()">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
+            <div class="menu_screen" id="menu_screen">
+                <button class="menu_btn_01"></button>
+                <button onclick="exit()">ログアウト</button>
+                <button></button>
+            </div>            
         </header>
 
         <main>
             <div class="blc_container b_c_00" id="blc_container_00">
-                <p>00</p>
+                <div class="table_container">
+                    <table id="data_table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>費目</th>
+                                <th>店名</th>
+                                <th>家計/個人</th>
+                                <th>金額</th>
+                                <th>支払日</th>
+                                <th>メモ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <!-- JavaScript で行を追加 -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="blc_container b_c_01" id="blc_container_01">
@@ -274,10 +429,10 @@
                     <div class="inp_zn">
                         <select class="opt" id="category_inp">
                             <option value="">選択肢</option>
-                            <option value="cost_eatout">外食</option>
                             <option value="cost_food">食材</option>
                             <option value="cost_dailyuse">日用品</option>
                             <option value="cost_food_dailyuse">食材・日用品</option>
+                            <option value="cost_eatout">外食</option>
                             <option value="cost_accomodation">宿泊費</option>
                             <option value="cost_learning">学習費</option>
                             <option value="cost_transportaion">交通費</option>
@@ -345,7 +500,13 @@
             </div>
 
             <div class="blc_container b_c_02" id="blc_container_02">
-                <p>02</p>
+                <div class="nav_btns">
+                    <button id="prevButton" class="nav_btn">← 前月</button>
+                    <button id="nextButton" class="nav_btn">翌月 →</button>
+                </div>
+                <div class="chart_container">
+                    <canvas id="barChart"></canvas>
+                </div>
             </div>
 
         </main>
@@ -360,15 +521,46 @@
         ///////////////////
         //   variables   //
         ///////////////////
-        const api_gateway = "https://uegiaoytr2.execute-api.us-east-1.amazonaws.com/ccc";
         const payer_id = sessionStorage.getItem("payer_id");
+        const table_body = document.querySelector("#data_table tbody");
+        let currentStartIndex = 0;
+        let monthsPerPage = 3;
+        let aggregatedData = [];
+        let num_chart = 0
+        const category_map = {
+            "cost_food": "食費",
+            "cost_dailyuse": "日用品",
+            "cost_food_dailyuse": "食材・日用品",
+            "cost_eatout": "外食",
+            "cost_accomodation": "宿泊費",
+            "cost_learning": "学習費",
+            "cost_transportaion": "交通費",
+            "cost_interenet": "通信費",
+            "cost_entertainment": "娯楽費",
+            "cost_treatment": "治費費・薬剤費",
+            "cost_cosmetic": "化粧品・美容",
+            "cost_rent": "家賃",
+            "cost_utility": "光熱費",
+            "cost_water": "水道代",
+            "cost_apparel": "服飾費",
+            "cost_communicaiton": "交際費",
+            "cost_saving": "貯蓄",
+            "cost_other": "その他",
+        };
+        const obj_map = {
+            "obj_household": "家計",
+            "obj_individual": "個人",
+        };
+
 
         ///////////////////
         //   functions   //
         ///////////////////
         window.onload = function() {
             document.getElementById("blc_container_01").classList.add("active");
-        };
+            api_gateway = env[0]["api_gateway"];
+            // console.log("api_gateway: ", api_gateway);
+        };  
 
         function showLoading() {
             document.getElementById("loading").style.display = "block";
@@ -398,6 +590,8 @@
         };
 
         function handleScroll() {
+            clearTable();
+            read();
             let clicked_id = event.target.id;
             if (clicked_id === "right_triangle") {
                 if (document.getElementById("blc_container_00").classList.contains("active")) {
@@ -435,6 +629,13 @@
                 };
             };
         };
+
+        function handleHamburger() {
+            const hamburger_menu = document.getElementById("hamburger_menu");
+            hamburger_menu.classList.toggle('active');
+            const menu_screen = document.getElementById("menu_screen");
+            menu_screen.classList.toggle("active");
+        }
 
         function money_format(event) {
             let value = event.target.value.replace(/,/g, '');
@@ -487,5 +688,189 @@
                 console.error("API Error to api_gateway:", error);
             });
         };
+
+        function read() {
+            let process = "read"
+            let timestamp = getTimeStamp();
+            let bodyData = {
+                "process": process,
+                "timestamp": timestamp,
+                "payer_id": payer_id,
+            };
+            let sentData = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(bodyData)
+            }
+            // console.log(sentData);
+            showLoading();
+            fetch(api_gateway, sentData)
+            .then(response => response.json())
+            .then(result => {
+                console.log("API Response to api_gateway:", result);
+                let getData = result;
+                console.log("getData ===>");
+                if (getData.msg === "read completed") {
+                    let rawData = getData.data;
+                    populateTable(rawData);
+                    let data = transformData(rawData);
+                    aggregatedData = aggregateMonthlyData(data);
+                    hideLoading();
+                    if (num_chart === 0) {
+                        drawChart(aggregatedData, currentStartIndex, monthsPerPage);
+                    }
+                    num_chart += 1
+                } else {
+                    sessionStorage.setItem("response", "エラーが起きています");
+                    hideLoading();
+                }
+            })
+            .catch(error => {
+                console.error("API Error to api_gateway:", error);
+            });
+        };
+
+        function populateTable(data) {
+            console.log(data);
+            data.forEach((item) => {
+                const row = document.createElement("tr");
+                const item_01 = category_map[item[1]] || item[1];
+                const item_03 = obj_map[item[3]] || item[3];
+                row.innerHTML = `
+                    <td>${item[0]}</td>
+                    <td>${item_01}</td>
+                    <td>${item[2]}</td>
+                    <td>${item_03}</td>
+                    <td>${item[4]}</td>
+                    <td>${item[5]}</td>
+                    <td>${item[6]}</td>
+                `;
+                table_body.appendChild(row);
+            });
+        }
+
+        function clearTable() {
+            table_body.innerHTML = "";
+            rawData = {};
+        }
+
+        function transformData(rawData) {
+            return rawData.map((item) => ({
+                date: item[5].slice(0, 7),
+                amount: item[4],
+                category: category_map[item[1]] || item[1],
+            }));
+
+        }
+
+        function aggregateMonthlyData(data) {
+            const aggregated = {};
+            data.forEach((item) => {
+                const month = item.date.slice(0, 7);
+                const key = `${month}-${item.category}`;
+                if (!aggregated[key]) {
+                    aggregated[key] = { month, category: item.category, amount: 0 };
+                }
+                aggregated[key].amount += item.amount;
+            });
+            return Object.values(aggregated);
+        }
+
+        function getCategoryColor(category) {
+            const colorMap = {
+                cost_food: "rgba(240, 240, 240, 0.8)",
+                cost_dailyuse: "rgba(220, 220, 220, 0.8)",
+                cost_food_dailyuse: "rgba(200, 200, 200, 0.8)",
+                cost_eatout: "rgba(180, 180, 180, 0.8)",
+                cost_accomodation: "rgba(160, 160, 160, 0.8)",
+                cost_learning: "rgba(140, 140, 140, 0.8)",
+                cost_transportaion: "rgba(120, 120, 120, 0.8)",
+                cost_interenet: "rgba(100, 100, 100, 0.8)",
+                cost_entertainment: "rgba(80, 80, 80, 0.8)",
+                cost_treatment: "rgba(230, 230, 230, 0.8)",
+                cost_cosmetic: "rgba(210, 210, 210, 0.8)",
+                cost_rent: "rgba(190, 190, 190, 0.8)",
+                cost_utility: "rgba(170, 170, 170, 0.8)",
+                cost_water: "rgba(150, 150, 150, 0.8)",
+                cost_apparel: "rgba(130, 130, 130, 0.8)",
+                cost_communicaiton: "rgba(110, 110, 110, 0.8)",
+                cost_saving: "rgba(90, 90, 90, 0.8)",
+                cost_other: "rgba(70, 70, 70, 0.8)",
+            };
+            return colorMap[category] || "rgba(200, 200, 200, 0.8)"; // default color
+        }
+
+        function formatChartData(aggregatedData, currentStartIndex, monthsPerPage) {
+            const labels = [...new Set(aggregatedData.map((item) => item.month))].sort((a, b) => new Date(a) - new Date(b));
+            const displayedLabels = labels.slice(currentStartIndex, currentStartIndex + monthsPerPage);
+            const categories = [...new Set(aggregatedData.map((item) => item.category))];
+            const datasets = categories.map((category) => {
+                return {
+                    label: category,
+                    data: displayedLabels.map((month) => {
+                        const entry = aggregatedData.find((item) => item.month === month && item.category === category);
+                        return entry ? entry.amount : 0;
+                    }),
+                    backgroundColor: getCategoryColor(category),
+                };
+            });
+            return { labels: displayedLabels, datasets };
+        }
+
+        function updateChart(chart, startIndex, endIndex) {
+            if (chart) {
+                const chartData = formatChartData(aggregatedData, startIndex, endIndex);
+                // console.log("chartData.labels:", chartData.labels);
+                chart.data.labels = chartData.labels;
+                chart.data.datasets = chartData.datasets;
+                chart.update();
+            } else {
+                console.error("Chart instance is undefined.");
+            }
+        }
+
+        function drawChart(aggregatedData, currentStartIndex, monthsPerPage) {
+            const ctx = document.getElementById("barChart").getContext("2d");
+            const chartData = formatChartData(aggregatedData, currentStartIndex, monthsPerPage);
+            barChart = new Chart(ctx, {
+                type: "bar",
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: "right",
+                            labels: {
+                                font: { size: 12 },
+                                boxWidth: 8,
+                            },
+                        },
+                        title: { display: true, text: "Monthly Expense Summary (Stacked Bar Chart)" },
+                    },
+                    scales: {
+                        x: { stacked: true, title: { display: true, text: "Month" } },
+                        y: { stacked: true, title: { display: false, text: "Amount" } },
+                    },
+                },
+            });
+        }
+        
+        document.getElementById("prevButton").addEventListener("click", () => {
+            if (currentStartIndex > 0) {
+                currentStartIndex -= 1;
+                updateChart(barChart, currentStartIndex, currentStartIndex + monthsPerPage);
+            }
+        });
+
+        document.getElementById("nextButton").addEventListener("click", () => {
+            if (aggregatedData.length > 0 && currentStartIndex + monthsPerPage < [...new Set(aggregatedData.map((item) => item.month))].length) {
+                currentStartIndex += 1;
+                updateChart(barChart, currentStartIndex, currentStartIndex + monthsPerPage);
+            }
+        });
+
     </script>
 </html>

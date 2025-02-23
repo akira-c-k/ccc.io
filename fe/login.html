@@ -4,6 +4,7 @@
         <title>ccc</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <script src="config.json.js"></script>
         <style>
             html {
                 background-color: rgb(255,255,255);
@@ -198,7 +199,7 @@
                         <p class="exp">パスワード</p>
                     </div>
                     <div class="inp_zn">
-                        <input type="text" class="inp" id="pw_inp">
+                        <input type="password" class="inp" id="pw_inp">
                     </div>
                 </div>
 
@@ -218,12 +219,16 @@
         ///////////////////
         //   variables   //
         ///////////////////
-        const api_gateway = "https://uegiaoytr2.execute-api.us-east-1.amazonaws.com/ccc";
         const process = "login";
 
         ///////////////////
         //   functions   //
         ///////////////////
+        window.onload = function() {
+            api_gateway = env[0]["api_gateway"];
+            // console.log("api_gateway: ", api_gateway);
+        };  
+
         function showLoading() {
             document.getElementById("loading").style.display = "block";
         };
